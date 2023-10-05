@@ -2,6 +2,8 @@ package com.buyukozkan.restdemo.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.buyukozkan.restdemo.model.CloudVendor;
+import com.buyukozkan.restdemo.response.ResponseHandler;
 import com.buyukozkan.restdemo.service.CloudVendorService;
 
 // This class is responsible to expose all the REST APIs related to CloudVendor.
@@ -28,8 +31,8 @@ public class CloudVendorController {
 
     // Read specific cloud vendor details.
     @GetMapping("{vendorId}")
-    public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorId) {
-        return cloudVendorService.getCloudVendor(vendorId);
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorId) {
+        return ResponseHandler.responseBuilder("Requested Vendor Details are given here", HttpStatus.OK, cloudVendorService.getCloudVendor(vendorId));
     }
 
     // Read All cloud vendor details from db.
